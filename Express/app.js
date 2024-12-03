@@ -3,11 +3,11 @@ const app = express()
 
 
 app.get("/", function(req, res){
-    res.send("Inicio")
+    res.sendFile(__dirname + "/html/index.html")
 })
 
 app.get("/sobre", function(req, res){
-    res.send("Sobre")
+    res.sendFile(__dirname + "/html/sobre.html")
 })
 
 app.get("/info", function(req, res){
