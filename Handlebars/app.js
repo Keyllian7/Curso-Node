@@ -7,7 +7,8 @@ const Post = require('./models/post');
 
 // Configurações
     // Template Engine
-        app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
+        app.engine('handlebars', handlebars.engine({defaultLayout: 'main',
+            runtimeOptions: {allowProtoPropertiesByDefault: true, allowProtoMethodsByDefault: true}}));
         app.set('view engine', 'handlebars');
     // Body Parser
         app.use(bodyParser.urlencoded({extended: false}));
@@ -16,7 +17,9 @@ const Post = require('./models/post');
 // Rotas
 
         app.get("/", function(req, res){
-            res.render('home')
+            Post.findAll({order: [['id', 'DESC']]}).then(function(postagens){
+                res.render("home", {postagens: postagens})
+            })
         })
 
         app.get('/cadastro', function(req, res){
